@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
+import Pagination from "../pagination/Pagination";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -19,7 +20,6 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
-  const API_URL = "https://fakestoreapi.com/products";
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(
@@ -33,6 +33,7 @@ const ProductList = () => {
     (product) =>
       product.title.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
   );
+
   return (
     <div>
       {loading ? (
@@ -86,60 +87,4 @@ const ProductList = () => {
   );
 };
 
-const ProductDetails = () => {
-  const [product, setProduct] = useState({});
-  const [loading, setLoading] = useState(true);
-  const { id } = useParams();
-  useEffect(() => {
-    const fetchProduct = async () => {
-      setLoading(true);
-      const res = await axios.get(`https://fakestoreapi.com/products/${id}`);
-      setProduct(res.data);
-      setLoading(false);
-    };
-    fetchProduct();
-  }, [id]);
-
-  return (
-    <div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div>
-          <h1>{product.title}</h1>
-          <p>{product.description}</p>
-          <p>Price: {product.price}</p>
-          <p>
-            <img
-              className="product-image"
-              src={product.image}
-              alt="API Image"
-            />
-          </p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-const Pagination = ({ productsPerPage, totalProducts, paginate }) => {
-  const pageNumbers = [];
-
-  for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
-  return (
-    <nav>
-      <ul>
-        {pageNumbers.map((number) => (
-          <li key={number}>
-            <button onClick={() => paginate(number)}>{number}</button>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-};
-
-export { ProductList, ProductDetails };
+export default ProductList;

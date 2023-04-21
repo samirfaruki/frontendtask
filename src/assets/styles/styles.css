@@ -12,3 +12,8 @@ tr {
   height: 80px;
   border-bottom: 1px solid #7e7e7e;
 }
+
+img.product-image {
+  height: 200px;
+  width: 180px;
+}

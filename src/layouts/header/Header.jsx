@@ -14,17 +14,14 @@ export const Header = () => {
         </div>
         <nav className="header__nav">
           <ul className="header__nav-list">
-            <li className="header__nav-item">
-              <a href="/">Home</a>
-            </li>
             <li>
               <Link to="/product">Store</Link>{" "}
             </li>
             <li className="header__nav-item">
-              <a href="/about">About Us</a>
+              <a href="/about-us">About Us</a>
             </li>
             <li className="header__nav-item">
-              <a href="/contact">Contact Us</a>
+              <a href="/contact-us">Contact Us</a>
             </li>
           </ul>
         </nav>
